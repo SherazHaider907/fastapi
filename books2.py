@@ -24,7 +24,7 @@ class BookRequest(BaseModel):
     id: Optional[int] = Field(description = 'ID is not needed to create a book',default=None)
     title: str = Field(min_length=3)
     auther: str = Field(min_length=1)
-    description: str = Field(min_length=1 , max_length=100)
+    description: str = Field(min_length=1 , max_length=300)
     rating: int = Field(gt=-1, lt=6)
 
     model_config = {
@@ -109,7 +109,7 @@ async def read_book_by_rating(book_rating: int):
     for book in BOOKS:
         if book.rating == book_rating:
             books_to_return.append(book)
-    return books_to_return
+    return books_to_return 
 
 # simple way to create book
 # @app.post("/create_books")
@@ -127,3 +127,9 @@ async def create_book(book_request: BookRequest):
 def find_book_id(book:Book):
     book.id = 1 if len(BOOKS) == 0 else BOOKS[-1].id + 1
     return book
+
+@app.put("/books/update_book/")
+async def update_book(book: BookRequest):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].id == book.id:
+            BOOKS[i] = book
