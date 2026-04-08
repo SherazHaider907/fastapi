@@ -1,4 +1,4 @@
-from http.client import HTTPException
+from fastapi import HTTPException
 from typing import Optional
 from fastapi import FastAPI, Path ,Query #,Body
 from pydantic import BaseModel,Field
