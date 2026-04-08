@@ -94,6 +94,13 @@ BOOKS = [
 async def read_all_books():
     return BOOKS
 
+@app.get("/books/{book_id}")
+async def read_book(book_id: int):
+    for book in BOOKS:
+        if book.id == book_id:
+            return book
+    return {"error": "Book not found"}
+
 # simple way to create book
 # @app.post("/create_books")
 # async def create_book(book_request = Body()):
