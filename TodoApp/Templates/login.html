@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Login | TodoApp{% endblock %}
+
+{% block content %}
+<div class="card auth-card">
+    <h2>Login</h2>
+    <form id="login-form" class="form-grid">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+
+        <button class="button button-primary" type="submit">Login</button>
+        <p class="small-text">Don't have an account? <a href="/register">Register</a></p>
+    </form>
+    <div id="login-error" class="form-error"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/login.js"></script>
+{% endblock %}

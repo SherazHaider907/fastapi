@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends,HTTPException
 from pydantic import BaseModel
-from models import User
+from ..models import User
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-from database import SessionLocal
+from ..database import SessionLocal
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
@@ -99,3 +99,8 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail ='Could not validate user')
     token = create_access_token(user.username,user.id,user.role,timedelta(minutes=20))
     return {'access_token':token,'token_type': 'bearer'}
+
+
+@router.get("/me")
+async def read_current_user(current_user: Annotated[dict, Depends(get_current_user)]):
+    return current_user

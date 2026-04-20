@@ -1,12 +1,56 @@
-from fastapi import FastAPI
-import models
-from database import engine
-from routers import auth,todos,admin,users
+from pathlib import Path
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from . import models
+from .database import engine
+from .routers import auth, todos, admin, users
+import jinja2
 
 
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
+
+base_dir = Path(__file__).resolve().parent
+app.mount("/static", StaticFiles(directory=base_dir / "static"), name="static")
+
+jinja_env = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(str(base_dir / "Templates")),
+    autoescape=jinja2.select_autoescape(["html", "xml"]),
+)
+
+
+def render_template(template_name: str, context: dict = None):
+    context = context or {}
+    template = jinja_env.get_template(template_name)
+    return HTMLResponse(content=template.render(**context))
+
+
+@app.get("/")
+def root():
+    return RedirectResponse(url="/home")
+
+
+@app.get("/home")
+def home(request: Request):
+    return render_template("home.html")
+
+
+@app.get("/login")
+def login(request: Request):
+    return render_template("login.html")
+
+
+@app.get("/register")
+def register(request: Request):
+    return render_template("register.html")
+
+
+@app.get("/todos")
+def todos_page(request: Request):
+    return render_template("todos.html")
+
 
 @app.get("/healthy")
 def health_check():

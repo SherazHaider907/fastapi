@@ -5,11 +5,10 @@ from fastapi import APIRouter, Depends, Path ,Query ,HTTPException
 from starlette import status
 from .auth import get_current_user
 from passlib.context import CryptContext
-from models import Todo,User
+from ..models import Todo,User
 
 
-from models import Todo
-from database import SessionLocal
+from ..database import SessionLocal
 
 
 

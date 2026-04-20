@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Register | TodoApp{% endblock %}
+
+{% block content %}
+<div class="card auth-card">
+    <h2>Register</h2>
+    <form id="register-form" class="form-grid">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="first_name">First Name</label>
+        <input id="first_name" name="first_name" type="text" required>
+
+        <label for="last_name">Last Name</label>
+        <input id="last_name" name="last_name" type="text" required>
+
+        <label for="phone_number">Phone</label>
+        <input id="phone_number" name="phone_number" type="text" required>
+
+        <label for="role">Role</label>
+        <input id="role" name="role" type="text" value="user" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+
+        <button class="button button-primary" type="submit">Register</button>
+        <p class="small-text">Already registered? <a href="/login">Login</a></p>
+    </form>
+    <div id="register-error" class="form-error"></div>
+    <div id="register-success" class="form-success"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/register.js"></script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}My Todos | TodoApp{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>My Todos</h1>
+        <p>Manage your tasks: add, edit, and delete with live updates.</p>
+    </div>
+    <button class="button button-secondary" id="logout-button">Logout</button>
+</div>
+
+<section class="todo-panel">
+    <div class="todo-column">
+        <div class="card">
+            <h2>Add or Edit Todo</h2>
+            <form id="todo-form" class="form-grid">
+                <input type="hidden" id="todo-id">
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" required>
+
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority" required>
+                    <option value="1">1 (Low)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (High)</option>
+                </select>
+
+                <label for="complete">Completed</label>
+                <select id="complete" name="complete" required>
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+
+                <button class="button button-primary" type="submit">Save Todo</button>
+                <button class="button button-secondary" type="button" id="todo-reset">Clear</button>
+            </form>
+            <div id="todo-message" class="form-success"></div>
+        </div>
+    </div>
+    <div class="todo-column">
+        <div class="card todo-list-card">
+            <h2>Your Tasks</h2>
+            <div id="todo-list" class="todo-list"></div>
+            <p id="empty-state" class="empty-state">No todos yet. Add one to get started.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/todos.js"></script>
+{% endblock %}

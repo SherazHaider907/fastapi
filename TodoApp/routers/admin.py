@@ -6,8 +6,8 @@ from starlette import status
 from .auth import get_current_user
 
 
-from models import Todo
-from database import SessionLocal
+from ..models import Todo
+from ..database import SessionLocal
 
 
 
