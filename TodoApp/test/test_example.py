@@ -1,3 +1,5 @@
+import pytest
+
 def test_equal_or_not_equal():
     assert 3 == 3
     assert 3 != 1
@@ -27,3 +29,31 @@ def test_list():
     assert 7 not in num_list
     assert all(num_list)
     assert not any(any_list)
+
+
+class Student:
+    def __init__(self,first_name : str, last_name : str, major : str, years : int):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.major = major
+        self.years = years
+
+
+
+@pytest.fixture
+def default_employee():
+    return Student("Jane", "Doe", "Computer Science", 3)
+
+
+def test_person_initialization(default_employee):
+    # student = Student("John", "Doe", "Computer Science", 2)
+    assert default_employee.first_name == "Jane"
+    assert default_employee.last_name == "Doe"
+    assert default_employee.major == "Computer Science"
+    assert default_employee.years == 3
+
+
+
+
+# pytest fixtures :
+        # are used to set up a known state before tests run and to clean up after tests. They can be used to create test datinitialize resources, or perform any necessary setup and teardown operations.
