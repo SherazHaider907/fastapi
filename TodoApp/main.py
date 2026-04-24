@@ -4,11 +4,12 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from . import models
 from .database import engine
-from .routers import auth, todos, admin, users
+from .routers import auth, todos, admin, users,api
 import jinja2
 
 
 app = FastAPI()
+app.include_router(api.router, prefix="/api")
 
 models.Base.metadata.create_all(bind=engine)
 
